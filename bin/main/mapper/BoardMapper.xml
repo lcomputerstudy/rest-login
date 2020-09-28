@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
+	<select id="selectBoardList" resultType="Board">
+		SELECT			b_id as bId,
+						b_title as bTitle,
+						b_content as bContent,
+						b_writer as bWriter
+		FROM			boardlist
+	</select>
+	<select id="selectBoardDetail" resultType="Board" parameterType="int">
+		SELECT			b_id as bId,
+								b_title as bTitle,
+								b_content as bContent,
+								b_writer as bWriter,
+								b_datetime as bDateTime 
+		FROM				boardlist
+		WHERE			b_id = #{bId}
+	</select>
+	<select id="deleteBoard" resultType="Board" parameterType="int">
+		DELETE			
+		FROM				boardlist
+		WHERE			b_id = #{bId}
+	</select>
+	<select id="insertBoard" resultType="Board" parameterType="int">
+		INSERT INTO			
+		FROM				boardlist
+		WHERE			b_id = #{bId}
+	</select>
+</mapper>

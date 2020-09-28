@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcomputerstudy.example.mapper.UserMapper">
+	 <!-- 권한 읽기 -->
+    <select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+    	SELECT			u_auth
+    	FROM				userauth
+    	WHERE 			1=1
+    	AND				u_id = #{username}
+    </select>
+
+	<!-- 회원 불러오기 -->
+	<select id="readUser" parameterType="String" resultType="User">
+		SELECT			u_id											as 	username,
+								u_password 							as 	password,
+								u_name									as	    name,
+								u_phone									as		phone,
+								u_isAccountNonExpired 		as 	isAccountNonExpired,
+		        				u_isAccountNonLocked 		as 	isAccountNonLocked,
+		        				u_isCredentialNonExpired 	as 	isCredentialsNonExpired,
+		        				u_isEnabled 				as 	isEnabled
+		FROM			userlist
+		WHERE			1=1
+		AND				u_id	=	#{username}
+	</select>
+	
+	<!-- 회원 등록 -->
+	<insert id="createUser" parameterType="User">
+		INSERT INTO userlist (
+			u_id,
+			u_password,
+			u_name,
+			u_phone,
+			u_isAccountNonExpired,
+			u_isAccountNonLocked,
+			u_isCredentialNonExpired,
+			u_isEnabled
+		) VALUES (
+			#{username},
+			#{password},
+			#{name},
+			#{phone},
+			#{isAccountNonExpired},
+			#{isAccountNonLocked},
+			#{isCredentialsNonExpired},
+			#{isEnabled}
+		)
+	</insert>	
+	
+	 <!-- 유저 권한 추가 -->
+    <insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
+    	INSERT INTO userauth (
+    		u_id,
+    		u_auth
+    	) VALUES
+   		<foreach item="authority" index="index" collection="authorities" separator=",">
+   			(#{username}, #{authority.role})
+   		</foreach>
+   		ON DUPLICATE KEY
+			UPDATE
+				u_id = #{username}
+    </insert>
+</mapper>
