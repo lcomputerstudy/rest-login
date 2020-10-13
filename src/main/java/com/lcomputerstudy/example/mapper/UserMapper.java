@@ -11,7 +11,8 @@ import com.lcomputerstudy.example.domain.UserInfo;
 public interface UserMapper {
 	//유저읽기
 	public User readUser(String username);
-	
+	//유저읽기 새로고침
+	public UserInfo readUser_refresh(String username);
 	 //유저생성
 	   public void createUser(User user);
 	   // 유저목록 불러오기

@@ -64,6 +64,22 @@ export default new Vuex.Store({
    },
    INSERT_TOKEN(state) {
      state.Userinfo.User_token = localStorage.getItem("token")
+   },
+   SET_USER_REFRESH(state,data) {
+    state.Userinfo.User_Id = data.username
+    state.Userinfo.User_Name = data.name
+    state.Userinfo.User_auth = data.authorities
+    state.Userinfo.User_token = data.token
+   },
+   logout(state) {
+    state.Userinfo.User_Id = null
+    state.Userinfo.User_Name = null
+    state.Userinfo.User_auth = null
+    state.Userinfo.User_token = null
+    localStorage.setItem("token",null)
+    console.log(state.Userinfo)
+    console.log(localStorage.getItem("token"))
+    Route.push("/login")
    }
   },
   actions: {
@@ -177,9 +193,23 @@ export default new Vuex.Store({
              commit('READ_USER_LIST',Response.data)
           })
           .catch(Error => {
+            // console.log(Error)
+            //   console.log('admin_error')
+              Route.push("/")
+          })
+  })
+  },
+  UnpackToken({commit}) {
+    return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+      axios.get('http://localhost:9000/api/auth/unpackToken')
+          .then(Response => {
+            console.log(Response.data)
+            commit('SET_USER_REFRESH',Response.data)
+          })
+          .catch(Error => {
             console.log(Error)
-              console.log('admin_error')
-              Route.push("/home")
+              console.log('unpackToken_error')
           })
   })
   }

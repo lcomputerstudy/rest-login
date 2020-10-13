@@ -1,6 +1,5 @@
 package com.lcomputerstudy.example.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,10 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.request.JoinRequest;
 import com.lcomputerstudy.example.request.LoginRequest;
 import com.lcomputerstudy.example.response.JwtResponse;
 import com.lcomputerstudy.example.service.UserService;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -78,7 +81,7 @@ public class AuthController {
 	}
 	@PostMapping("/signup")
 	   public ResponseEntity<?> sinupUser(@Validated @RequestBody JoinRequest joinRequest) {
-	      
+		
 	      String encodedPassword = new BCryptPasswordEncoder().encode(joinRequest.getPassword());
 	      
 	      User user = new User();
@@ -101,5 +104,19 @@ public class AuthController {
 	      
 	      return new ResponseEntity<>("success", HttpStatus.OK);
 	   }
+	
+	@GetMapping("/unpackToken")
+	public ResponseEntity<?> unpackToken(HttpServletRequest request) {
+		String token = new String();
+		token =  request.getHeader("Authorization");
+		
+		if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token =  token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		UserInfo user = userService.readUser_refresh(username);
+
+		 return new ResponseEntity<>(user, HttpStatus.OK);
+	}
 	
 }

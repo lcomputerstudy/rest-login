@@ -23,7 +23,15 @@
 		WHERE			1=1
 		AND				u_id	=	#{username}
 	</select>
-	
+	<!-- 회원 불러오기(새로고침) -->
+	<select id="readUser_refresh" parameterType="String" resultType="UserInfo">
+		SELECT			u_id											as 	username,
+								u_name									as	    name,
+								u_phone									as		phone
+		FROM			userlist
+		WHERE			1=1
+		AND				u_id	=	#{username}
+	</select>
 	<!-- 회원 등록 -->
 	<insert id="createUser" parameterType="User">
 		INSERT INTO userlist (

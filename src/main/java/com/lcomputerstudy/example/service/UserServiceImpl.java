@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService{
 	public List<UserInfo> readUserList() {
 		return userMapper.readUserList();
 	}
+	
+	//유저읽기 새로고침
+		public UserInfo readUser_refresh(String username) {
+			return userMapper.readUser_refresh(username);
+		}
 }

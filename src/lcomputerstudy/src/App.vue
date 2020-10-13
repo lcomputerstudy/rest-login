@@ -39,7 +39,7 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>LcomputerStudy</v-toolbar-title>
-      <v-btn>로그아웃</v-btn>
+      <v-btn @click="logout()">로그아웃</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -69,12 +69,13 @@ import {mapMutations, mapState} from "vuex"
     computed: {
       ...mapState(["Userinfo"])
     },
-    // methods: {
-    //   ...mapMutations(["INSERT_TOKEN"])
-    // },
+    methods: {
+      ...mapMutations(["logout"])
+    },
     created() {
       if(this.Userinfo.User_token === null) {
-        this.$store.commit("INSERT_TOKEN")
+        this.$store.commit("INSERT_TOKEN"),
+        this.$store.dispatch('UnpackToken')
         console.log("tttttt"+this.Userinfo.User_token)
       }
     }
