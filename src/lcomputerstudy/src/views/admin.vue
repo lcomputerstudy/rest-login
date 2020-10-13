@@ -7,9 +7,9 @@
             <td>name</td>
             <td>phone</td>
           </tr>
-          <!-- <tr>
-            <td>{{UserList.name}}</td>
-          </tr> -->
+          <tr>
+            <td>{{UserList}}</td>
+          </tr>
           
         </table>
     </div>
@@ -19,9 +19,9 @@ import { mapState, mapActions } from "vuex"
 export default {
   created() {
     this.$store.dispatch('admin')
+  },
+  computed: {
+      ...mapState(["UserList"])
   }
-  // computed: {
-  //     ...mapState(["UserList"])
-  // }
 }
 </script>

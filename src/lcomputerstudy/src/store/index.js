@@ -6,16 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    Userinfo:{User_Id:null,User_Name:null,User_auth:[]},
-    login_err:false,
-    login_success:false,
+    Userinfo:{User_Id:null,User_Name:null,User_auth:[],User_token:null},
     boardlist:[],
-    board_detail:[]
-  },
-  getters: {
-    allUsers: state=> {
-      return state.UserList.length
-    }
+    board_detail:[],
+    UserList:[]
   },
   mutations: {
     NewUsers: (state,payload) => {
@@ -50,6 +44,7 @@ export default new Vuex.Store({
       state.Userinfo.User_Id = data.username
       state.Userinfo.User_Name = data.name
       state.Userinfo.User_auth = data.authorities
+      state.Userinfo.User_token = data.token
       Route.push("/user")
    },
    SET_BOARDLIST(state,data) {
@@ -63,6 +58,12 @@ export default new Vuex.Store({
      var index = state.boardlist.findIndex(i => i.bId == data);
      state.boardlist.splice(index, 1);
      Route.push("/boardlist")
+   },
+   READ_USER_LIST(state,data) {
+    state.UserList = data
+   },
+   INSERT_TOKEN(state) {
+     state.Userinfo.User_token = localStorage.getItem("token")
    }
   },
   actions: {
@@ -81,8 +82,7 @@ export default new Vuex.Store({
                   if (Response.data.username != null) {
                       axios.defaults.headers.common['Authorization'] = `Bearer ${Response.data.token}`
                       localStorage.setItem("token",Response.data.token)
-                      commit('SET_USER', Response.data)
-                      
+                      commit('SET_USER', Response.data)      
                   }
               })
               .catch(Error => {
@@ -171,10 +171,10 @@ export default new Vuex.Store({
     let token = localStorage.getItem("token")
     console.log(token)
     return new Promise((resolve, reject) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       axios.get('http://localhost:9000/api/admin/adminPage')
           .then(Response => {
-            console.log(Response)
+            console.log(Response.data)
+             commit('READ_USER_LIST',Response.data)
           })
           .catch(Error => {
             console.log(Error)

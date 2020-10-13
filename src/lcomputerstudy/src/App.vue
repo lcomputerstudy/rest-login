@@ -60,9 +60,23 @@
 </template>
 
 <script>
+import {mapMutations, mapState} from "vuex"
+
   export default {
     data: () => ({
       drawer: null,
     }),
+    computed: {
+      ...mapState(["Userinfo"])
+    },
+    // methods: {
+    //   ...mapMutations(["INSERT_TOKEN"])
+    // },
+    created() {
+      if(this.Userinfo.User_token === null) {
+        this.$store.commit("INSERT_TOKEN")
+        console.log("tttttt"+this.Userinfo.User_token)
+      }
+    }
   }
 </script>

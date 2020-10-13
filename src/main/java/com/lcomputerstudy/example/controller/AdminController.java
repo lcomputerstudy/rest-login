@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
 
@@ -47,23 +48,14 @@ public class AdminController {
 	UserService userService;
 	
 		@GetMapping("/adminPage")
-//		@PreAuthorize("hasRole('ROLE_ADMIN')")
-		public HashMap<String, Object>  AccessAdmin(HttpServletRequest request) {
+		@PreAuthorize("hasRole('ROLE_ADMIN')")
+		public ResponseEntity<?>  AccessAdmin(HttpServletRequest request) {
 //			String token = request.getHeader("Authorization");
 //			String token2 = new String();
 //			if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
 //				token2 =  token.substring(7, token.length());
 //			}
-			List<Board> boardList = boardService.selectBoardList();
-			ArrayList<User> userList = userService.readUserList();
-			User userInfo = userList.get(0);
-			
-			HashMap<String, Object> map = new HashMap<>(); 
-//			ResponseEntity<?> rEn =  new ResponseEntity<>(userList, HttpStatus.OK);
-			map.put("userInfo", boardList);
-			
-//			logger.debug(rEn.toString());
-			return map;
-					
+			List<UserInfo> userList = userService.readUserList();
+			return  new ResponseEntity<>(userList, HttpStatus.OK);
 		}
 }

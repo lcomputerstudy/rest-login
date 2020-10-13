@@ -2,16 +2,7 @@
 <v-container style="max-width:500px">
     <v-layout>
         <v-flex xs12>
-          <v-alert type="error"
-            class="mb-3"
-            :value="login_err">
-              아이디 / 비밀번호를 확인해주세요
-            </v-alert>
-            <v-alert class="mb-3"
-            type="success"
-            :value="login_success">
-              로그인 성공
-          </v-alert>
+
             <v-card class="elevation-12">
                 <v-toolbar
                 color="primary"
@@ -63,15 +54,14 @@ import {mapActions,mapState} from "vuex"
         password:null,
       }
     },
+    computed: {
+      ...mapState(["Userinfo"])
+    },
     methods: {
    // ...mapActions(["Login"])
     login(payload) {
         this.$store.dispatch('loginProcess', payload)
     }
-
-  },
-  computed: {
-    ...mapState(["login_err","login_success"])
   }
 }
 </script>
