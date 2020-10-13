@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//해당 경로 모두 허용
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 			.antMatchers("/api/test/**").permitAll()
+			.antMatchers("/api/admin/**").permitAll()
 			//이외의 경로 인증처리 된 유저만 접근 가능
 			.anyRequest().authenticated();
 

@@ -21,6 +21,14 @@
             <v-list-item-title>게시판</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+         <v-list-item router :to="{name:'admin'}">
+          <v-list-item-action>
+            <v-icon>mdi-card-text-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>관리자</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -31,6 +39,7 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>LcomputerStudy</v-toolbar-title>
+      <v-btn>로그아웃</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -52,9 +61,6 @@
 
 <script>
   export default {
-    props: {
-      source: String,
-    },
     data: () => ({
       drawer: null,
     }),

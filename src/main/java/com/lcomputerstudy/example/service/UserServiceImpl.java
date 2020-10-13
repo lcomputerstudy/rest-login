@@ -1,5 +1,6 @@
 package com.lcomputerstudy.example.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,9 @@ public class UserServiceImpl implements UserService{
 	public void createAuthority(User user) {
 		userMapper.createAuthority(user);
 	}
-
+	
+	@Override
+	public ArrayList<User> readUserList() {
+		return userMapper.readUserList();
+	}
 }

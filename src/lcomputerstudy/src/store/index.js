@@ -80,6 +80,7 @@ export default new Vuex.Store({
                   console.log(Response.data)
                   if (Response.data.username != null) {
                       axios.defaults.headers.common['Authorization'] = `Bearer ${Response.data.token}`
+                      localStorage.setItem("token",Response.data.token)
                       commit('SET_USER', Response.data)
                       
                   }
@@ -163,6 +164,22 @@ export default new Vuex.Store({
           .catch(Error => {
               console.log('error')
               reject(Error)
+          })
+  })
+  },
+  admin({commit}) {
+    let token = localStorage.getItem("token")
+    console.log(token)
+    return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      axios.get('http://localhost:9000/api/admin/adminPage')
+          .then(Response => {
+            console.log(Response)
+          })
+          .catch(Error => {
+            console.log(Error)
+              console.log('admin_error')
+              Route.push("/home")
           })
   })
   }

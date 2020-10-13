@@ -23,10 +23,10 @@
 import { mapState, mapActions } from "vuex"
 export default {
   created() {
-      this.$store.dispatch('boardList')
+    this.$store.dispatch('boardList')
   },
   computed: {
-        ...mapState(["boardlist"])
+    ...mapState(["boardlist"])
   },
   methods: {
     ...mapActions(['boardDetail','boardWrite'])

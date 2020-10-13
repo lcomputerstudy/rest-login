@@ -46,7 +46,13 @@
 			#{isEnabled}
 		)
 	</insert>	
-	
+	<!-- 회원목록 불러오기 -->
+	<select id="readUserList" parameterType="String" resultType="User">
+		SELECT		u_id											as 	username,
+							u_name									as	    name,
+							u_phone									as		phone
+		FROM			userlist
+	</select>
 	 <!-- 유저 권한 추가 -->
     <insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
     	INSERT INTO userauth (
