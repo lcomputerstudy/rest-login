@@ -14,6 +14,7 @@ public interface UserService extends UserDetailsService{
 	public User readUser(String username);
 	//유저읽기 새로고침
 		public UserInfo readUser_refresh(String username);
+		public List<GrantedAuthority>  readAuthorities_refresh(String username);
 	//유저생성
 	   public void createUser(User user);
 

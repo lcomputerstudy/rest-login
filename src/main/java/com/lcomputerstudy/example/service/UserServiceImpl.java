@@ -59,4 +59,7 @@ public class UserServiceImpl implements UserService{
 		public UserInfo readUser_refresh(String username) {
 			return userMapper.readUser_refresh(username);
 		}
+		public List<GrantedAuthority> readAuthorities_refresh(String username) {
+			return userMapper.readAuthorities_refresh(username);
+		}
 }

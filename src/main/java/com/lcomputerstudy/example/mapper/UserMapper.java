@@ -2,6 +2,7 @@ package com.lcomputerstudy.example.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.security.core.GrantedAuthority;
 import com.lcomputerstudy.example.domain.User;
@@ -13,6 +14,7 @@ public interface UserMapper {
 	public User readUser(String username);
 	//유저읽기 새로고침
 	public UserInfo readUser_refresh(String username);
+	public List<GrantedAuthority>  readAuthorities_refresh(String username);
 	 //유저생성
 	   public void createUser(User user);
 	   // 유저목록 불러오기

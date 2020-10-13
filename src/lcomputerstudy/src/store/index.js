@@ -76,9 +76,9 @@ export default new Vuex.Store({
     state.Userinfo.User_Name = null
     state.Userinfo.User_auth = null
     state.Userinfo.User_token = null
-    localStorage.setItem("token",null)
+    localStorage.removeItem("token")
     console.log(state.Userinfo)
-    console.log(localStorage.getItem("token"))
+    console.log("로그아웃됐니?"+localStorage.getItem("token"))
     Route.push("/login")
    }
   },
@@ -120,6 +120,8 @@ export default new Vuex.Store({
             .catch(Error => {
                 console.log('error')
                 reject(Error)
+                alert("아이디가 중복")
+                Route.push("/signup")
             })
     })
    },
@@ -194,7 +196,7 @@ export default new Vuex.Store({
           })
           .catch(Error => {
             // console.log(Error)
-            //   console.log('admin_error')
+              console.log('admin_error')
               Route.push("/")
           })
   })

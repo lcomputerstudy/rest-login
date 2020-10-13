@@ -28,10 +28,18 @@
 		SELECT			u_id											as 	username,
 								u_name									as	    name,
 								u_phone									as		phone
-		FROM			userlist
+		FROM			userlist 
 		WHERE			1=1
 		AND				u_id	=	#{username}
 	</select>
+	<!-- 권한 읽기(새로고침) -->
+    <select id="readAuthorities_refresh" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+    	SELECT			u_auth
+    	FROM				userauth
+    	WHERE 			1=1
+    	AND				u_id = #{username}
+    </select>
+    
 	<!-- 회원 등록 -->
 	<insert id="createUser" parameterType="User">
 		INSERT INTO userlist (
