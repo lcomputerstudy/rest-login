@@ -3,15 +3,12 @@ package com.lcomputerstudy.example.config;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.bind.DatatypeConverter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.lcomputerstudy.example.domain.User;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

@@ -23,6 +23,7 @@
 		WHERE			1=1
 		AND				u_id	=	#{username}
 	</select>
+	
 	<!-- 회원 불러오기(새로고침) -->
 	<select id="readUser_refresh" parameterType="String" resultType="UserInfo">
 		SELECT			u_id											as 	username,
@@ -62,13 +63,20 @@
 			#{isEnabled}
 		)
 	</insert>	
-	<!-- 회원목록 불러오기 -->
-	<select id="readUserList" parameterType="String" resultType="UserInfo">
-		SELECT		u_id											as 	username,
-							u_name									as	    name,
-							u_phone									as		phone
-		FROM			userlist
-	</select>
+	<!-- 회원 목록 불러오기(admin) -->
+    <select id="read_user_list"  resultType="UserInfo">
+    	SELECT		ta.u_id					username,
+    						ta.u_name			name,
+    						ta.u_phone			phone,
+							tb.u_auth			auth
+		FROM			userlist ta
+		LEFT join	(
+								SELECT		ta.u_id,
+													GROUP_CONCAT(ta.u_auth SEPARATOR ",") u_auth
+								FROM			userauth ta
+								GROUP BY		ta.u_id
+							) tb ON ta.u_id = tb.u_id
+		    </select>
 	 <!-- 유저 권한 추가 -->
     <insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
     	INSERT INTO userauth (

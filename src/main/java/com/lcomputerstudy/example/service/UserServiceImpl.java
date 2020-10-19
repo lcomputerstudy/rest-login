@@ -51,14 +51,24 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<UserInfo> readUserList() {
-		return userMapper.readUserList();
+	public List<UserInfo>read_user_list() {
+		return userMapper.read_user_list();
 	}
+	
+//	@Override
+//	public List<UserInfo> readUserList() {
+//		return userMapper.readUserList();
+//	}
+//	//유저목록 권한 불러오기
+//		public List<UserInfo>  readAuthorities_all() {
+//			return userMapper.readAuthorities_all();
+//		}
 	
 	//유저읽기 새로고침
 		public UserInfo readUser_refresh(String username) {
 			return userMapper.readUser_refresh(username);
 		}
+	//유저권한읽기 새로고침
 		public List<GrantedAuthority> readAuthorities_refresh(String username) {
 			return userMapper.readAuthorities_refresh(username);
 		}

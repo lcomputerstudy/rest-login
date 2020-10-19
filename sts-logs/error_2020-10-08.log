@@ -1,5 +1,0 @@
-19:06:50.343 INFO  --- [main] c.l.example.LStudyRestApplication : Starting LStudyRestApplication on DESKTOP-DJ0B1L0 with PID 10952 (C:\Users\belle\l_study_rest\bin\main started by belle in C:\Users\belle\l_study_rest) 
-19:06:50.351 DEBUG --- [main] c.l.example.LStudyRestApplication : Running with Spring Boot v2.3.2.RELEASE, Spring v5.2.8.RELEASE 
-19:06:50.351 INFO  --- [main] c.l.example.LStudyRestApplication : The following profiles are active: local 
-19:06:52.606 DEBUG --- [main] c.l.example.config.AuthTokenFilter : Filter 'authenticationJwtTokenFilter' configured for use 
-19:06:53.393 INFO  --- [main] c.l.example.LStudyRestApplication : Started LStudyRestApplication in 3.638 seconds (JVM running for 5.966) 
